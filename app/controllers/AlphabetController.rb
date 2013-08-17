@@ -7,6 +7,7 @@ class AlphabetController < UIViewController
     @table = UITableView.alloc.initWithFrame(self.view.bounds)
     self.view.addSubview @table
     @table.dataSource = self
+    @table.delegate = self
 
     @data = ("A".."Z").to_a
   end
@@ -28,5 +29,14 @@ class AlphabetController < UIViewController
   def tableView(tableView, numberOfRowsInSection: section)
     # return the number of rows
     @data.count
+  end
+
+  def tableView(tableView, didSelectRowAtIndexPath:indexPath)
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+
+    alert = UIAlertView.alloc.init
+    alert.message = "#{@data[indexPath.row]} tapped!"
+    alert.addButtonWithTitle "OK"
+    alert.show
   end
 end
